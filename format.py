@@ -12,6 +12,11 @@ specific actions like <<account_pulled>> and <<account_update>> that occur regul
 
 """
 def format_action(action):
+    # Uncomment for raw_actions file.
+    # if action not in actions:
+    #     actions.append(action)
+    # return action
+
     # If action starts with FAQ, remove it for now.
     if action.startswith('FAQ'):
         return
@@ -87,6 +92,8 @@ def process_conversation_llama(convo):
         # Determine the role (user/assistant) based on the speaker
         role = 'user' if speaker == 'customer' else 'assistant'
         processed_entries.append({'role': role, 'content': utterance.strip()})
+    
+    #json.dump(actions, open('raw_actions.json', 'w'), indent=4)
     
     # Skip leading assistant messages until the first user
     # All assistant messages before the first user message are ignored.
